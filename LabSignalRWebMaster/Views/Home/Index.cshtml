@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+<script src="/signalr/hubs"></script>
+
+<script>
+
+    var contosoChatHubProxy = $.connection.notifyHub;
+    contosoChatHubProxy.client.ClientUpdateDateTime = function (message) {
+        console.log(message);
+    };
+    $.connection.hub.start();
+</script>
+<table>
+    <thead>
+        <tr>
+            <th>Fecha Server</th>
+        </tr>
+    </thead>
+    <tbody id="tblbody"></tbody>
+</table>

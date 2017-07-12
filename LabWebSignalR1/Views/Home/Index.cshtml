@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="http://192.168.0.109/LabSignalRWebMaster/signalr/hubs"></script>
+
+<script>
+    $.connection.hub.url = "http://192.168.0.109/LabSignalRWebMaster/signalr"
+
+    var contosoChatHubProxy = $.connection.notifyHub;
+    contosoChatHubProxy.client.ClientUpdateDateTime = function (message) {
+        $("#tblbody").append("<tr><td>" + message + "</td></tr>");
+    };
+    $.connection.hub.start({ jsonp: true }).done(function () {
+        console.log("its Work");
+    });
+    $.connection.hub.error(function () {
+        console.log("Error");
+    });
+</script>
+<table>
+    <thead>
+        <tr>
+            <th>Fecha Server</th>
+        </tr>
+    </thead>
+    <tbody id="tblbody"></tbody>
+</table>
